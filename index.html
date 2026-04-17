@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cora's Cookies and Cakes</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: #fff7fa;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    img {
+      max-width: 100%;
+      display: block;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    .section {
+      padding: 70px 0;
+    }
+
+    .section-title {
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #4ea9c7;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .section-heading {
+      font-size: 38px;
+      margin: 0 0 15px;
+      color: #222;
+    }
+
+    .section-text {
+      color: #666;
+      max-width: 700px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255,255,255,0.95);
+      border-bottom: 1px solid #f3dbe5;
+      backdrop-filter: blur(8px);
+    }
+
+    .topbar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 78px;
+      gap: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #f5c7d8;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+    }
+
+    .brand-name {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #4ea9c7;
+      margin: 0;
+    }
+
+    .brand-location {
+      margin: 3px 0 0;
+      font-size: 12px;
+      color: #777;
+    }
+
+    .nav {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+      font-size: 14px;
+      font-weight: 600;
+      color: #666;
+    }
+
+    .nav a:hover {
+      color: #ef6ea8;
+    }
+
+    .hero {
+      background: #fff;
+      border-bottom: 1px solid #f3dbe5;
+      overflow: hidden;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.95fr;
+      gap: 36px;
+      align-items: center;
+      padding: 70px 0 85px;
+    }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 22px;
+    }
+
+    .hero-brand-logo {
+      width: 84px;
+      height: 84px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #f5c7d8;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.07);
+    }
+
+    .hero-small {
+      font-size: 14px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: #4ea9c7;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .hero-note {
+      margin: 6px 0 0;
+      color: #7a7a7a;
+      font-size: 14px;
+    }
+
+    .hero h1 {
+      font-size: 58px;
+      line-height: 1.08;
+      margin: 0 0 20px;
+      color: #222;
+    }
+
+    .hero p {
+      font-size: 19px;
+      color: #666;
+      max-width: 650px;
+      margin: 0;
+    }
+
+    .hero-buttons,
+    .social-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .hero-buttons {
+      margin-top: 28px;
+    }
+
+    .social-buttons {
+      margin-top: 24px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 22px;
+      border-radius: 16px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: 0.2s ease;
+    }
+
+    .btn-primary {
+      background: #ef6ea8;
+      color: white;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      opacity: 0.95;
+    }
+
+    .btn-secondary {
+      background: #fff2f7;
+      border: 1px solid #f5c7d8;
+      color: #4a9cb8;
+    }
+
+    .btn-secondary:hover {
+      background: #ffe9f2;
+    }
+
+    .btn-outline {
+      background: #fff;
+      border: 1px solid #f5c7d8;
+      color: #555;
+    }
+
+    .btn-outline:hover {
+      background: #fff7fa;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #ffe6f0;
+      color: #555;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .pill:hover {
+      background: #ffd7e8;
+    }
+
+    .hero-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .card-pink {
+      background: #ffd3e4;
+      padding: 22px;
+    }
+
+    .card-inner {
+      background: white;
+      border-radius: 22px;
+      padding: 24px;
+      height: 100%;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .eyebrow-blue {
+      color: #76b9d0;
+    }
+
+    .eyebrow-pink {
+      color: #ffd8ea;
+    }
+
+    .mini-card {
+      background: white;
+      padding: 24px;
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    .dark-card {
+      background: #1b5a70;
+      color: white;
+      padding: 24px;
+      border-radius: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.07);
+    }
+
+    .dark-card p {
+      color: #e5eef2;
+    }
+
+    .features-grid,
+    .pricing-grid,
+    .menu-grid,
+    .gallery-grid,
+    .reviews-grid,
+    .dump-grid {
+      display: grid;
+      gap: 22px;
+    }
+
+    .features-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .pricing-grid,
+    .menu-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .gallery-grid,
+    .reviews-grid,
+    .dump-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .white-card {
+      background: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+      border: 1px solid #f7d9e5;
+    }
+
+    .white-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 28px;
+      color: #222;
+    }
+
+    .price {
+      color: #ef6ea8;
+      font-weight: 700;
+      font-size: 20px;
+      margin-top: 16px;
+    }
+
+    .pink-feature {
+      background: #fff0f6;
+      border-radius: 32px;
+      padding: 36px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+    }
+
+    .about-highlight {
+      max-width: 850px;
+      margin: 0 auto 50px;
+      background: #fff4f8;
+      border-radius: 32px;
+      padding: 36px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.04);
+      text-align: center;
+    }
+
+    .about-highlight p {
+      margin: 12px 0;
+      color: #555;
+      font-size: 18px;
+    }
+
+    .about-two-col {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .gallery-placeholders {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .placeholder-square {
+      aspect-ratio: 1 / 1;
+      border: 2px dashed #f3c6d7;
+      border-radius: 18px;
+      background: #fff5f9;
+    }
+
+    .dump-section {
+      margin-top: 28px;
+      background: #1b5a70;
+      color: white;
+      border-radius: 32px;
+      padding: 34px;
+    }
+
+    .dump-section p {
+      color: #e3edf1;
+    }
+
+    .dump-card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 24px;
+      padding: 18px;
+    }
+
+    .dump-image {
+      aspect-ratio: 4 / 3;
+      border: 2px dashed rgba(255,255,255,0.45);
+      border-radius: 18px;
+      background: rgba(255,255,255,0.06);
+      margin-bottom: 12px;
+    }
+
+    .reviews-wrap {
+      background: #ffe6f0;
+    }
+
+    .review-card {
+      background: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.05);
+    }
+
+    .review-quote {
+      font-size: 20px;
+      color: #666;
+      margin-top: 0;
+    }
+
+    .review-name {
+      margin-top: 18px;
+      font-weight: 700;
+      color: #222;
+    }
+
+    .order-box {
+      background: #2b2428;
+      color: white;
+      border-radius: 32px;
+      padding: 34px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .order-box p {
+      color: #dfd3d8;
+    }
+
+    .order-mini {
+      background: rgba(255,255,255,0.08);
+      border-radius: 24px;
+      padding: 20px;
+    }
+
+    .footer {
+      border-top: 1px solid #f3dbe5;
+      background: white;
+      padding: 26px 0;
+      font-size: 14px;
+      color: #777;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-links a:hover {
+      color: #ef6ea8;
+    }
+
+    @media (max-width: 980px) {
+      .hero-grid,
+      .about-two-col,
+      .order-box {
+        grid-template-columns: 1fr;
+      }
+
+      .hero h1 {
+        font-size: 44px;
+      }
+
+      .features-grid,
+      .gallery-grid,
+      .reviews-grid,
+      .dump-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .pricing-grid,
+      .menu-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .nav {
+        display: none;
+      }
+
+      .hero-brand {
+        align-items: flex-start;
+      }
+
+      .hero-brand-logo {
+        width: 72px;
+        height: 72px;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+      }
+
+      .section-heading {
+        font-size: 30px;
+      }
+
+      .about-highlight p {
+        font-size: 16px;
+      }
+
+      .brand-name {
+        font-size: 11px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <div class="brand">
+        <img src="logo.png" alt="Cora's Cookies and Cakes logo" class="brand-logo">
+        <div>
+          <p class="brand-name">Cora's Cookies and Cakes</p>
+          <p class="brand-location">Eagle, Idaho</p>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <a href="#featured">Featured</a>
+        <a href="#menu">Menu</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#order">Order</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <div class="hero-brand">
+          <img src="logo.png" alt="Cora's Cookies and Cakes logo" class="hero-brand-logo">
+          <div>
+            <p class="hero-small">Cora's Cookies and Cakes</p>
+            <p class="hero-note">Inspired by your pink-and-blue logo style • Eagle, Idaho</p>
+          </div>
+        </div>
+
+        <h1>Custom cookies, cakes, and sweet treats made to celebrate life’s best moments.</h1>
+        <p>From birthdays to baby showers to just-because desserts, Cora’s Cookies and Cakes creates homemade treats that look special and taste even better.</p>
+
+        <div class="hero-buttons">
+          <a class="btn btn-primary" href="#order">Order Now</a>
+          <a class="btn btn-secondary" href="#menu">View Menu</a>
+          <a class="btn btn-outline" href="#gallery">See Past Cakes</a>
+        </div>
+
+        <div class="social-buttons">
+          <a class="pill" href="https://www.facebook.com/p/Coras-Cookies-and-Cakes-61566041792634/" target="_blank">Facebook</a>
+          <a class="pill" href="https://www.instagram.com/coras_cookies_and_cakes/" target="_blank">Instagram</a>
+        </div>
+      </div>
+
+      <div class="hero-cards">
+        <div class="card card-pink">
+          <div class="card-inner">
+            <div class="eyebrow eyebrow-blue">Best Seller</div>
+            <h3>Signature Cookie Boxes</h3>
+            <p>A favorite for birthdays, thank-you gifts, and weekend treats.</p>
+            <div class="pink-feature">Fresh baked, beautifully packaged, and perfect for sharing.</div>
+          </div>
+        </div>
+
+        <div>
+          <div class="mini-card" style="margin-bottom:18px;">
+            <div class="eyebrow eyebrow-blue">Custom Orders</div>
+            <h3>Made to match your event</h3>
+            <p>Colors, themes, names, and dessert styles can all be customized.</p>
+          </div>
+
+          <div class="dark-card">
+            <div class="eyebrow eyebrow-pink">Follow Along</div>
+            <h3>See recent creations on social media</h3>
+            <p>Facebook and Instagram are the best places to view new designs, seasonal specials, customer favorites, and place an order inquiry.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="featured" class="section">
+    <div class="container">
+      <div class="section-title">Featured Favorites</div>
+      <h2 class="section-heading">Popular orders</h2>
+      <p class="section-text">A few of the most-loved items customers order for parties, gifts, and special celebrations.</p>
+
+      <div class="features-grid" style="margin-top: 30px;">
+        <div class="white-card">
+          <h3>Custom Celebration Cakes</h3>
+          <p>Beautiful custom cakes for birthdays, showers, graduations, and special events.</p>
+          <div class="price">Starting at $65</div>
+        </div>
+
+        <div class="white-card">
+          <h3>Decorated Sugar Cookies</h3>
+          <p>Custom cookie sets designed to match your theme, colors, and event style.</p>
+          <div class="price">$40 per dozen</div>
+        </div>
+
+        <div class="white-card">
+          <h3>Chocolate Chip Cookie Boxes</h3>
+          <p>Soft, bakery-style cookies made fresh for gifting, parties, or weekend treats.</p>
+          <div class="price">$30 per dozen</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section" style="background: white;">
+    <div class="container">
+      <div class="about-highlight">
+        <p style="font-size: 28px; margin-top: 0;">🌸✨ Spring & Summer Orders Now Open! ✨🌸</p>
+        <p>Hi everyone! I’m Cora, a 17-year-old baker and the proud owner of Cora’s Cookies and Cakes 💕 I specialize in creating beautiful, high-quality baked goods that taste just as amazing as they look — all at affordable prices!</p>
+        <p>From custom cakes and pies to cookies for any occasion, I’ve been honored to win awards for my baking and love bringing your ideas to life. Whether you’re planning a wedding, party, or special celebration, I’d be so excited to be a part of it!</p>
+        <p>🌿 Now offering natural colors for a more organic, elegant touch</p>
+        <p>📍 Located in Eagle, ID</p>
+        <p>📅 Now booking for spring and summer events</p>
+        <p style="margin-bottom: 0;">Let’s make your next event extra sweet! Message me to place an order or to start planning your custom treats 💌</p>
+      </div>
+
+      <div class="about-two-col">
+        <div>
+          <div class="section-title">About</div>
+          <h2 class="section-heading">Homemade desserts with a personal touch</h2>
+        </div>
+
+        <div>
+          <p>Cora’s Cookies and Cakes in Eagle, Idaho creates custom desserts that help make events feel thoughtful, beautiful, and memorable.</p>
+          <p>Whether you need a birthday cake, themed sugar cookies, cupcakes, or a dessert table, each order is made with care and designed to fit your occasion.</p>
+          <p>Social media is where most customers discover new designs, place inquiries, and stay updated on specials.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="section">
+    <div class="container">
+      <div class="section-title">Pricing</div>
+      <h2 class="section-heading">Simple and affordable pricing</h2>
+      <p class="section-text">Clear pricing helps customers know what to expect before they message you.</p>
+
+      <div class="pricing-grid" style="margin-top: 30px;">
+        <div class="white-card">4” Cake (mini/smash) — $45</div>
+        <div class="white-card">6” Cake (serves 5–9) — $60</div>
+        <div class="white-card">8” Cake (serves 10–16) — $75</div>
+        <div class="white-card">10” Cake (serves 17–24) — $90</div>
+        <div class="white-card">Sheet Cake (serves 36–48) — $105</div>
+        <div class="white-card">Cupcakes (dozen) — $30</div>
+        <div class="white-card">Cookies (dozen) — $30</div>
+        <div class="white-card">Custom Sugar Cookies (dozen) — $40</div>
+        <div class="white-card">Pies — $30</div>
+        <div class="white-card">Tastings — $8</div>
+        <div class="white-card">Add-on: Chocolate drip — +$10</div>
+        <div class="white-card">Add-on: Filling — +$15</div>
+        <div class="white-card">Add-on: Natural coloring — +$15</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="menu" class="section">
+    <div class="container">
+      <div class="about-two-col">
+        <div>
+          <div class="section-title">Menu</div>
+          <h2 class="section-heading">Sweet options for every occasion</h2>
+          <p class="section-text">This gives customers a quick feel for the kinds of things you offer.</p>
+        </div>
+
+        <div class="menu-grid">
+          <div class="white-card">Custom cakes</div>
+          <div class="white-card">Birthday cakes</div>
+          <div class="white-card">Cupcakes</div>
+          <div class="white-card">Decorated sugar cookies</div>
+          <div class="white-card">Cookie gift boxes</div>
+          <div class="white-card">Holiday desserts</div>
+          <div class="white-card">Party dessert tables</div>
+          <div class="white-card">Special order treats</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" class="section">
+    <div class="container">
+      <div class="section-title">Gallery</div>
+      <h2 class="section-heading">Places for your cake photos and picture dumps</h2>
+      <p class="section-text">This section gives you an easy way to organize photos of your past work so customers can quickly browse what you have made before.</p>
+
+      <div class="gallery-grid" style="margin-top: 30px;">
+        <div class="white-card">
+          <h3>Past Cakes</h3>
+          <p>Show birthday cakes, wedding cakes, baby shower cakes, and custom celebration orders here.</p>
+          <div class="gallery-placeholders">
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+          </div>
+        </div>
+
+        <div class="white-card">
+          <h3>Cookie Sets</h3>
+          <p>Display decorated sugar cookies, holiday cookies, themed party cookies, and boxed sets.</p>
+          <div class="gallery-placeholders">
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+          </div>
+        </div>
+
+        <div class="white-card">
+          <h3>Cupcakes & Treat Boxes</h3>
+          <p>Use this area for cupcakes, cake jars, cookie boxes, and mixed dessert orders.</p>
+          <div class="gallery-placeholders">
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+            <div class="placeholder-square"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="dump-section">
+        <div class="section-title" style="color:#ffd8ea;">Picture Dump Page</div>
+        <h2 style="margin-top:0; font-size:32px;">A simple place to keep uploading recent photos</h2>
+        <p>This can become a page where you drop in lots of fresh pictures from recent orders, holiday bakes, customer pickups, and favorite designs without needing to organize every image right away.</p>
+
+        <div class="dump-grid" style="margin-top: 24px;">
+          <div class="dump-card">
+            <div class="dump-image"></div>
+            <div>Upload new cake photos here</div>
+          </div>
+          <div class="dump-card">
+            <div class="dump-image"></div>
+            <div>Recent custom orders</div>
+          </div>
+          <div class="dump-card">
+            <div class="dump-image"></div>
+            <div>Holiday and seasonal desserts</div>
+          </div>
+          <div class="dump-card">
+            <div class="dump-image"></div>
+            <div>Best sellers and customer favorites</div>
+          </div>
+          <div class="dump-card">
+            <div class="dump-image"></div>
+            <div>Event dessert tables</div>
+          </div>
+          <div class="dump-card">
+            <div class="dump-image"></div>
+            <div>Behind-the-scenes baking photos</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section reviews-wrap">
+    <div class="container">
+      <div style="text-align:center;">
+        <div class="section-title" style="color:#ef6ea8;">Reviews</div>
+        <h2 class="section-heading">What customers are saying</h2>
+      </div>
+
+      <div class="reviews-grid" style="margin-top: 30px;">
+        <div class="review-card">
+          <p class="review-quote">“Everything was beautiful, fresh, and exactly how we hoped it would look for the party.”</p>
+          <div class="review-name">Local Customer</div>
+        </div>
+
+        <div class="review-card">
+          <p class="review-quote">“The cookies were adorable and tasted amazing. We will definitely order again.”</p>
+          <div class="review-name">Happy Mom</div>
+        </div>
+
+        <div class="review-card">
+          <p class="review-quote">“So easy to order from, and the cakes always make people ask who made them.”</p>
+          <div class="review-name">Repeat Customer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="order" class="section">
+    <div class="container">
+      <div class="order-box">
+        <div>
+          <div class="section-title" style="color:#ffd8ea;">Order Information</div>
+          <h2 style="margin-top:0; font-size:38px;">Ready to place an order?</h2>
+          <p>Message Cora’s Cookies and Cakes on Facebook or Instagram to ask about availability, pricing, pickup details, and custom designs. Instagram: @coras_cookies_and_cakes.</p>
+          <div class="hero-buttons">
+            <a class="btn btn-primary" href="https://www.facebook.com/p/Coras-Cookies-and-Cakes-61566041792634/" target="_blank">Order on Facebook</a>
+            <a class="btn btn-secondary" href="https://www.instagram.com/coras_cookies_and_cakes/" target="_blank">Order on Instagram</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="order-mini">
+            <strong>Facebook Orders</strong>
+            <p>Best for viewing albums, event samples, and sending order questions.</p>
+          </div>
+
+          <div class="order-mini" style="margin-top:16px;">
+            <strong>Instagram Orders</strong>
+            <p>Great for quick messages, browsing recent work, and sharing inspiration photos.</p>
+          </div>
+
+          <div class="order-mini" style="margin-top:16px;">
+            <strong>Pickup or Local Delivery</strong>
+            <p>Based in Eagle, Idaho. Add your pickup instructions, business hours, and preferred ordering timeline here.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>© 2026 Cora's Cookies and Cakes. All rights reserved.</div>
+
+      <div class="footer-links">
+        <a href="https://www.facebook.com/p/Coras-Cookies-and-Cakes-61566041792634/" target="_blank">Facebook</a>
+        <a href="https://www.instagram.com/coras_cookies_and_cakes/" target="_blank">Instagram</a>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
